@@ -29,7 +29,7 @@ app.get('/bootstrap.css', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.render('dashboard');
+  res.render('dashboard', {headers: req.headers});
 });
 
 const server = http.createServer(app);
