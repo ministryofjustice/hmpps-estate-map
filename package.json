@@ -6,6 +6,10 @@
   "scripts": {
     "start": "node server.js"
   },
+  "engines": {
+    "node": ">= 8.4.0",
+    "npm": ">=5.3.0"
+  },
   "dependencies": {
     "azure": "^2.2.1-preview",
     "bootstrap": "^3.3.7",
