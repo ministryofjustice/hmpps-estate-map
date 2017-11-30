@@ -22,7 +22,7 @@ app.set('view engine', 'ejs');
 
 app.use(expressEjsLayouts);
 
-app.use(morgan(config.dev ? 'dev' : short));
+app.use(morgan(config.dev ? 'dev' : 'short'));
 
 app.get('/bootstrap.css', (req, res) => {
   res.sendFile(require.resolve(`bootstrap/${bootstrapPackageJson.style}`));
