@@ -7,24 +7,17 @@ const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
 const bootstrapPackageJson = require('bootstrap/package.json');
 
-const azureExplorer = require('./azure-explorer');
-
 const dev = process.env.NODE_ENV != 'production';
 const config = {
   dev,
   port: process.env.PORT || 2017,
   sessionKeys: (process.env.SESSION_KEYS || (dev ? 'x' : '')).split(','),
-  azure: {
-    subscriptions: (process.env.ARM_SUBSCRIPTIONS || '').split(','),
-  },
   auth: {
     aad: process.env.WEBSITE_AUTH_AUTO_AAD,
     clientID: process.env.WEBSITE_AUTH_CLIENT_ID,
     clientSecret: process.env.WEBSITE_AUTH_CLIENT_SECRET,
   },
 };
-
-const azure = azureExplorer(config.azure);
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -51,8 +44,34 @@ app.get('/logout', (req, res) => {
   res.redirect('/');
 });
 
+app.use((req, res, next) => {
+  res.locals = {
+    user: req.headers['x-ms-client-principal-name'] || 'local',
+  };
+  next();
+});
+
+const {ServiceClient} = require('ms-rest');
+app.get('/test', (req, res, next) => {
+  const serviceClient = new ServiceClient({
+    signRequest(webResource, callback) {
+      webResource.headers.authorization = 'Bearer '
+        + req.headers['x-ms-token-aad-access-token'];
+      return callback();
+    }
+  });
+  const options = {
+    method: 'GET',
+    pathTemplate: '/subscriptions?api-version=2015-01-01'
+  };
+  serviceClient.sendRequest(options, (err, body) => {
+    if (err) return next(err);
+    res.render('dump', {dump: body});
+  });
+});
+
 app.get('/', (req, res) => {
-  res.render('dashboard', {headers: req.headers});
+  res.render('dump', {dump: req.headers});
 });
 
 const server = http.createServer(app);
