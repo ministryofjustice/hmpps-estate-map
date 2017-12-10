@@ -2,7 +2,7 @@ const dev = process.env.NODE_ENV != "production";
 
 module.exports = {
   dev,
-  port: getenv("PORT", Number, 2017),
+  port: getenv("PORT", String, "2017"), // number or socket
   aadAuth: getenv("WEBSITE_AUTH_AUTO_AAD", Boolean, false)
 };
 
