@@ -3,7 +3,9 @@ import React from "react";
 export default class App extends React.Component {
   state = { subscriptions: null };
   componentDidMount() {
-    fetch("/azure/subscriptions?api-version=2015-01-01")
+    fetch("/azure/subscriptions?api-version=2015-01-01", {
+      credentials: "same-origin"
+    })
       .then(res => res.json())
       .then(({ value: subscriptions }) => this.setState({ subscriptions }));
   }
