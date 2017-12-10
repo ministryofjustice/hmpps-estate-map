@@ -1,8 +1,13 @@
-const http = require('http');
+const http = require("http");
 
-const config = require('./server/config');
-const azureProxyMiddleware = require('./server/azure')(config);
-const app = require('./server/app')(config, azureProxyMiddleware);
+const config = require("./server/config");
+const azureProxyMiddleware = require("./server/azure")(config);
+
+let app = require("./server/app")(config, azureProxyMiddleware);
+
+if (config.dev) {
+  app = require("./server/webpack")(app);
+}
 
 const server = http.createServer(app);
 server.listen(config.port, () => {

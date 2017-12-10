@@ -1,3 +1,5 @@
+const path = require("path");
+
 const express = require("express");
 const expressEjsLayouts = require("express-ejs-layouts");
 const morgan = require("morgan");
@@ -14,6 +16,8 @@ module.exports = function createApp(config, azureProxyMiddleware) {
 
   app.use(morgan(config.dev ? "dev" : "short"));
 
+  app.use("/dist", express.static(path.resolve(__dirname, "../dist")));
+
   app.use(cookieParser());
 
   app.get("/bootstrap.css", (req, res) => {
@@ -28,9 +32,8 @@ module.exports = function createApp(config, azureProxyMiddleware) {
   app.use("/azure", azureProxyMiddleware);
 
   app.get("/", (req, res) => {
-    res.render("dump", {
-      mode: config.aadAuth ? "AAD" : "CLI",
-      dump: req.headers
+    res.render("main", {
+      mode: config.aadAuth ? "AAD" : "CLI"
     });
   });
 

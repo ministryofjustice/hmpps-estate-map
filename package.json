@@ -4,22 +4,39 @@
   "author": "Glen Mailer <glen@stainlessed.co.uk>",
   "license": "MIT",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "build": "webpack",
+    "prepare": "sh production-build.sh"
   },
   "engines": {
     "node": ">= 8.4.0",
     "npm": ">= 5.3.0"
   },
   "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
     "bootstrap": "^3.3.7",
+    "clean-webpack-plugin": "^0.1.17",
     "cookie-parser": "^1.4.3",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
     "express-ejs-layouts": "^2.3.1",
     "http-proxy-middleware": "^0.17.4",
-    "morgan": "^1.9.0"
+    "morgan": "^1.9.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "uglifyjs-webpack-plugin": "^1.1.2",
+    "webpack": "^3.10.0",
+    "webpack-dev-middleware": "^1.12.2",
+    "webpack-hot-middleware": "^2.21.0"
   },
   "prettier": {
     "printWidth": 80
+  },
+  "nodemonConfig": {
+    "ignore": "client/*"
   }
 }
