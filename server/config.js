@@ -3,7 +3,6 @@ const dev = process.env.NODE_ENV != "production";
 module.exports = {
   dev,
   port: getenv("PORT", Number, 2017),
-  sessionKeys: getenv("SESSION_KEYS", s => s.split(","), ["x"], true),
   aadAuth: getenv("WEBSITE_AUTH_AUTO_AAD", Boolean, false)
 };
 
