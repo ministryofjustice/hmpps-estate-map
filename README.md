@@ -59,6 +59,15 @@ See https://cgillum.tech/2016/03/07/app-service-token-store/ for information abo
 
 ## TODO
 
+Features
+
+* Include more VM information
+  * Power state
+  * description tags
+* Plan out what's actually required feature-wise
+
+Implementation
+
 * Automatically handle token refresh
   * Remove proxy from server
   * use /.auth/me to get token onto client
@@ -68,4 +77,3 @@ See https://cgillum.tech/2016/03/07/app-service-token-store/ for information abo
   * Querying Raw API data from cache
   * Component Rendering & auto subscription
   * MobX / Custom Query Layer / DataScript?
-* Plan out what's actually required feature-wise
