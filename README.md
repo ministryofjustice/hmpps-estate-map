@@ -51,6 +51,8 @@ For step 3 we use a modified version of [this graph API approach][3], but we set
 
 This causes the `x-ms-token-aad-access-token` header to be present on all incoming requests, which we use to authenticate with the Azure API.
 
+See https://cgillum.tech/2016/03/07/app-service-token-store/ for information about token refresh calls.
+
 [1]: https://docs.microsoft.com/en-us/azure/app-service/app-service-authentication-overview
 [2]: https://docs.microsoft.com/en-us/azure/app-service/app-service-mobile-how-to-configure-active-directory-authentication
 [3]: https://cgillum.tech/2016/03/25/app-service-auth-aad-graph-api/
