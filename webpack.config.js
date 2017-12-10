@@ -14,7 +14,7 @@ module.exports = {
     dev && "webpack-hot-middleware/client"
   ].filter(Boolean),
 
-  devtool: dev ? "cheap-eval-source-map" : false,
+  devtool: dev ? "cheap-module-source-map" : false,
 
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),

@@ -56,3 +56,16 @@ See https://cgillum.tech/2016/03/07/app-service-token-store/ for information abo
 [1]: https://docs.microsoft.com/en-us/azure/app-service/app-service-authentication-overview
 [2]: https://docs.microsoft.com/en-us/azure/app-service/app-service-mobile-how-to-configure-active-directory-authentication
 [3]: https://cgillum.tech/2016/03/25/app-service-auth-aad-graph-api/
+
+## TODO
+
+* Automatically handle token refresh
+  * Remove proxy from server
+  * use /.auth/me to get token onto client
+  * use /.auth.refresh to refresh when token expires
+* Separate concerns to improve perf and hot reloading
+  * Raw API Data storage
+  * Querying Raw API data from cache
+  * Component Rendering & auto subscription
+  * MobX / Custom Query Layer / DataScript?
+* Plan out what's actually required feature-wise

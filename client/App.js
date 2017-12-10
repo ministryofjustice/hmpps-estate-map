@@ -1,25 +1,42 @@
 import React from "react";
 
+import VirtualMachineList from "./VirtualMachineList";
+
 export default class App extends React.Component {
-  state = { subscriptions: null };
-  componentDidMount() {
-    fetch("/azure/subscriptions?api-version=2015-01-01", {
-      credentials: "same-origin"
-    })
-      .then(res => res.json())
-      .then(({ value: subscriptions }) => this.setState({ subscriptions }));
+  state = { error: null };
+  componentDidCatch(error, info) {
+    this.setState({ error: error.stack + "\n" + info.componentStack });
   }
   render() {
-    const { subscriptions } = this.state;
+    const { azure } = this.props;
     return (
       <div>
-        <h1>Subscriptions</h1>
-        <ul>
-          {Array.isArray(subscriptions) &&
-            subscriptions.map(sub => (
-              <li key={sub.subscriptionId}>{sub.displayName}</li>
-            ))}
-        </ul>
+        <nav className="navbar navbar-default navbar-static-top">
+          <div className="container">
+            <div className="navbar-header">
+              <a className="navbar-brand" href="/">
+                HMPPS Azure Browser
+              </a>
+              <button
+                type="button"
+                className="btn btn-default navbar-btn navbar-right"
+                onClick={() => azure.refreshToken()}
+              >
+                Refresh Token
+              </button>
+            </div>
+          </div>
+        </nav>
+        <div className="container">
+          {this.state.error ? (
+            <div className="alert alert-danger">
+              <h3>Error</h3>
+              <pre>{this.state.error}</pre>
+            </div>
+          ) : (
+            <VirtualMachineList azure={azure} />
+          )}
+        </div>
       </div>
     );
   }
