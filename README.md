@@ -65,9 +65,13 @@ Features
   * Power state
   * description tags
 * Plan out what's actually required feature-wise
+  * Public IPs
+  * User defined routes
+  * Subnets and NSGs
 
 Implementation
 
+* Actual URL-based routing for multiple pages
 * Automatically handle token refresh
   * Remove proxy from server
   * use /.auth/me to get token onto client
